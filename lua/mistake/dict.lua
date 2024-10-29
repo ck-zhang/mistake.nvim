@@ -8526,7 +8526,6 @@ return {
 	["apppropriate"] = "appropriate",
 	["interemediary"] = "intermediary",
 	["simulateneously"] = "simultaneously",
-	["def"] = "ref",
 	["Ract"] = "React",
 	["Roten"] = "Rotten",
 	["interfacte"] = "interface",
