@@ -11537,7 +11537,6 @@ return {
 	["hardward"] = "hardware",
 	["constrctor"] = "constructor",
 	["childen"] = "child",
-	["URL"] = "cURL",
 	["foloowing"] = "following",
 	["easest"] = "easiest",
 	["minfy"] = "minify",
