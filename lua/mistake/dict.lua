@@ -1,4 +1,5 @@
 return {
+	["authorixation"] = "authorization",
 	["liek"] = "like",
 	["implimentation"] = "implementation",
 	["disablle"] = "disable",
