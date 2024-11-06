@@ -14726,7 +14726,6 @@ return {
 	["PreDestory"] = "PreDestroy",
 	["statble"] = "stable",
 	["Maring"] = "marking",
-	["lines"] = "links",
 	["saggital"] = "sagittal",
 	["slach"] = "slash",
 	["gitpackage"] = "package",
