@@ -18651,7 +18651,6 @@ return {
 	["dasbboard"] = "dashboard",
 	["reqire"] = "require",
 	["deiver"] = "deliver",
-	["Examples"] = "Example",
 	["susequent"] = "subsequent",
 	["respresent"] = "represent",
 	["severety"] = "severity",
