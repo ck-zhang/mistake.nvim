@@ -191,6 +191,10 @@ M.add_entry = function()
 	vim.ui.input({ prompt = typo_icon .. 'Enter the typo: ' }, add_typo)
 end
 
+M.add_entry_under_cursor = function()
+	add_typo(vim.fn.expand("<cword>"))
+end
+
 M.edit_entries = function()
 	local custom_dict = {}
 	if vim.loop.fs_stat(M.opts.custom_dict_file) then
