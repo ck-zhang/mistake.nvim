@@ -7,6 +7,7 @@ M.setup = function(opts)
 	default_opts.dict_file = script_path .. "dict.lua"
 
 	default_opts.custom_dict_file = vim.fn.stdpath("config") .. "/mistake_custom_dict.lua"
+	default_opts.replace_after_addition = true
 
 	opts = opts or {}
 	opts = vim.tbl_extend("force", default_opts, opts)
@@ -122,6 +123,17 @@ M.setup = function(opts)
 		print("Custom abbreviations reloaded.")
 	end
 
+	M.replace_in_buffer = function(typo, correction)
+		if opts.replace_after_addition then
+			local original_position = vim.api.nvim_win_get_cursor(0)
+
+			local vim_s_command = ':substitute/\\<' .. typo .. '\\>/' .. correction .. '/gIe'
+			vim.cmd(vim_s_command)
+
+			vim.api.nvim_win_set_cursor(0, original_position)
+		end
+	end
+
 	M.diff_dictionaries = function(old_dict, new_dict)
 		local to_add = {}
 		local to_update = {}
@@ -183,6 +195,7 @@ local function add_typo(typo)
 			file:close()
 			print(" Added to custom dictionary: '" .. typo .. "' -> '" .. correction .. "'")
 			M.reload_custom_abbreviations()
+			M.replace_in_buffer(typo, correction)
 		else
 			print("Error writing to file: " .. M.opts.custom_dict_file)
 		end
