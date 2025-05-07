@@ -150,42 +150,45 @@ local function serialize_table(tbl)
 	return result
 end
 
-M.add_entry = function()
-	local typo_icon = " "
+local function add_typo(typo)
 	local correction_icon = " "
 	local info_icon = " "
 
-	vim.ui.input({ prompt = typo_icon .. 'Enter the typo: ' }, function(typo)
-		if not typo or typo == '' then
-			print(info_icon .. " Typo cannot be empty.")
+	if not typo or typo == '' then
+		print(info_icon .. " Typo cannot be empty.")
+		return
+	end
+	vim.ui.input({ prompt = correction_icon .. 'Enter the correction: ' }, function(correction)
+		if not correction or correction == '' then
+			print(info_icon .. " Correction cannot be empty.")
 			return
 		end
-		vim.ui.input({ prompt = correction_icon .. 'Enter the correction: ' }, function(correction)
-			if not correction or correction == '' then
-				print(info_icon .. " Correction cannot be empty.")
-				return
+
+		local custom_dict = {}
+		if vim.loop.fs_stat(M.opts.custom_dict_file) then
+			custom_dict = loadfile(M.opts.custom_dict_file)()
+		end
+
+		custom_dict[typo] = correction
+
+		local serialized = serialize_table(custom_dict)
+
+		local file = io.open(M.opts.custom_dict_file, 'w')
+		if file then
+			file:write(serialized)
+			file:close()
+			print(" Added to custom dictionary: '" .. typo .. "' -> '" .. correction .. "'")
+			M.reload_custom_abbreviations()
+		else
+			print("Error writing to file: " .. M.opts.custom_dict_file)
 			end
-
-			local custom_dict = {}
-			if vim.loop.fs_stat(M.opts.custom_dict_file) then
-				custom_dict = loadfile(M.opts.custom_dict_file)()
-			end
-
-			custom_dict[typo] = correction
-
-			local serialized = serialize_table(custom_dict)
-
-			local file = io.open(M.opts.custom_dict_file, 'w')
-			if file then
-				file:write(serialized)
-				file:close()
-				print(" Added to custom dictionary: '" .. typo .. "' -> '" .. correction .. "'")
-				M.reload_custom_abbreviations()
-			else
-				print("Error writing to file: " .. M.opts.custom_dict_file)
-			end
-		end)
 	end)
+end
+
+M.add_entry = function()
+	local typo_icon = " "
+
+	vim.ui.input({ prompt = typo_icon .. 'Enter the typo: ' }, add_typo)
 end
 
 M.edit_entries = function()
