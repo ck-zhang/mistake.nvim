@@ -185,7 +185,7 @@ local function add_typo(typo)
 			M.reload_custom_abbreviations()
 		else
 			print("Error writing to file: " .. M.opts.custom_dict_file)
-			end
+		end
 	end)
 end
 
