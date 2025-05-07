@@ -33,6 +33,10 @@ M.setup = function(opts)
 		M.add_entry()
 	end, {})
 
+	vim.api.nvim_create_user_command("MistakeAddCurrentWord", function()
+		M.add_entry_under_cursor()
+	end, {})
+
 	M.load_abbreviations = function()
 		M.load_chunked_entries(opts.dict_file, 100)
 		M.load_chunked_entries(opts.custom_dict_file, 100)
