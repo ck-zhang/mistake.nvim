@@ -16,7 +16,7 @@ M.setup = function(opts)
 
 	M.current_dict = {}
 
-	if not vim.loop.fs_stat(opts.custom_dict_file) then
+	if not vim.uv.fs_stat(opts.custom_dict_file) then
 		local file = io.open(opts.custom_dict_file, "w")
 		if file then
 			file:write('return {\n\t["teh"] = "the",\n}\n')
@@ -55,7 +55,7 @@ M.setup = function(opts)
 		local last_duration = initial_delay
 
 		local function load_next_chunk()
-			local start_time = vim.loop.hrtime()
+			local start_time = vim.uv.hrtime()
 			local limit = math.min(index + entries_per_chunk - 1, #entries)
 			for i = index, limit do
 				local typo = entries[i][1]
@@ -65,7 +65,7 @@ M.setup = function(opts)
 					M.current_dict[typo] = correction
 				end
 			end
-			local end_time = vim.loop.hrtime()
+			local end_time = vim.uv.hrtime()
 			last_duration = (end_time - start_time) / 1e6
 
 			local new_delay = math.max(math.floor(last_duration * 2), 1)
@@ -181,7 +181,7 @@ local function add_typo(typo)
 		end
 
 		local custom_dict = {}
-		if vim.loop.fs_stat(M.opts.custom_dict_file) then
+		if vim.uv.fs_stat(M.opts.custom_dict_file) then
 			custom_dict = loadfile(M.opts.custom_dict_file)()
 		end
 
@@ -214,7 +214,7 @@ end
 
 M.edit_entries = function()
 	local custom_dict = {}
-	if vim.loop.fs_stat(M.opts.custom_dict_file) then
+	if vim.uv.fs_stat(M.opts.custom_dict_file) then
 		custom_dict = loadfile(M.opts.custom_dict_file)()
 	end
 
