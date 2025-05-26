@@ -234,7 +234,7 @@ M.edit_entries = function()
 	local col = math.floor((vim.o.columns - width) / 2)
 	local row = math.floor((vim.o.lines - height) / 2)
 
-	local win = vim.api.nvim_open_win(buf, true, {
+	vim.api.nvim_open_win(buf, true, {
 		relative = 'editor',
 		width = width,
 		height = height,
