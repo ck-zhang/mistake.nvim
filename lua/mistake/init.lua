@@ -245,13 +245,13 @@ M.edit_entries = function()
 		title = 'Custom Dictionary',
 	})
 
-	vim.api.nvim_buf_set_option(buf, 'filetype', 'mistakeedit')
-	vim.api.nvim_buf_set_option(buf, 'buftype', 'acwrite')
-	vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
-	vim.api.nvim_buf_set_option(buf, 'modifiable', true)
-	vim.api.nvim_buf_set_option(buf, 'modified', false)
-	vim.api.nvim_buf_set_option(buf, 'swapfile', false)
-	vim.api.nvim_buf_set_option(buf, 'readonly', false)
+	vim.api.nvim_set_option_value('filetype', 'mistakeedit', {buf=buf})
+	vim.api.nvim_set_option_value('buftype', 'acwrite', {buf=buf})
+	vim.api.nvim_set_option_value('bufhidden', 'wipe', {buf=buf})
+	vim.api.nvim_set_option_value('modifiable', true, {buf=buf})
+	vim.api.nvim_set_option_value('modified', false, {buf=buf})
+	vim.api.nvim_set_option_value('swapfile', false, {buf=buf})
+	vim.api.nvim_set_option_value('readonly', false, {buf=buf})
 
 	vim.cmd([[
 		syntax match MistakeSeparator /->/
@@ -290,7 +290,7 @@ M.edit_entries = function()
 				file:close()
 				print('Custom dictionary saved.')
 				M.reload_custom_abbreviations()
-				vim.api.nvim_buf_set_option(buf, 'modified', false)
+				vim.api.nvim_set_option_value('modified', false, {buf=buf})
 			else
 				print("Error writing to file: " .. M.opts.custom_dict_file)
 			end
