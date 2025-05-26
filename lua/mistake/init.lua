@@ -269,13 +269,13 @@ M.edit_entries = function()
 				end
 				local parts = vim.split(line, '%s*->%s*')
 				if #parts ~= 2 then
-					vim.api.nvim_err_writeln('Error on line ' .. i .. ': Each line must contain exactly one "->" separator.')
+					vim.api.nvim_echo({{'Error on line ' .. i .. ': Each line must contain exactly one "->" separator.\n'}}, true, {err=true})
 					return
 				end
 				local typo = vim.trim(parts[1])
 				local correction = vim.trim(parts[2])
 				if typo == '' or correction == '' then
-					vim.api.nvim_err_writeln('Error on line ' .. i .. ': Typo and correction cannot be empty.')
+					vim.api.nvim_echo({{'Error on line ' .. i .. ': Typo and correction cannot be empty.\n'}}, true, {err=true})
 					return
 				end
 				new_dict[typo] = correction
