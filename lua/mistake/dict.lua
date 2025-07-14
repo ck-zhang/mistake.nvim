@@ -628,7 +628,6 @@ return {
 	["ASD"] = "ASK",
 	["speek"] = "speak",
 	["possibile"] = "possible",
-	["mut"] = "must",
 	["qeue"] = "queue",
 	["redine"] = "redefine",
 	["captial"] = "capital",
