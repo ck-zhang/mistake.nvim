@@ -625,7 +625,6 @@ return {
 	["naviagate"] = "navigate",
 	["inappropiate"] = "inappropriate",
 	["neccessary"] = "necessary",
-	["ASD"] = "ASK",
 	["speek"] = "speak",
 	["possibile"] = "possible",
 	["qeue"] = "queue",
